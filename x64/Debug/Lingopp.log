@@ -1,2 +1,3 @@
 ﻿  Game.cpp
+C:\Projects\Lingopp\Game.h(18,3): warning C4091: 'static ': ignored on left of 'Game::Rating' when no variable is declared
   Lingopp.vcxproj -> C:\Projects\Lingopp\x64\Debug\Lingopp.exe

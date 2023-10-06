@@ -11,5 +11,10 @@ public:
 	static void Tutorial();
 	static void Explain();
 	static void GameLoop();
+	
+	static enum Rating : uint16_t
+	{
+		Good, Wrong, Almost
+	};
 };
 

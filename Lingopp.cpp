@@ -7,6 +7,6 @@ using std::endl;
 
 int main()
 {
+	//Game::word = "asbak";
 	Game::Intro();
-	
 }
