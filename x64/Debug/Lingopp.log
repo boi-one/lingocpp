@@ -1,3 +1,9 @@
 ﻿  Game.cpp
-C:\Projects\Lingopp\Game.h(18,3): warning C4091: 'static ': ignored on left of 'Game::Rating' when no variable is declared
-  Lingopp.vcxproj -> C:\Projects\Lingopp\x64\Debug\Lingopp.exe
+X:\.repositories\lingopp\Game.cpp(32,22): warning C4244: 'argument': conversion from 'uint16_t' to '_Ty', possible loss of data
+          with
+          [
+              _Ty=char
+          ]
+  Lingopp.cpp
+  Generating Code...
+  Lingopp.vcxproj -> X:\.repositories\lingopp\x64\Debug\Lingopp.exe

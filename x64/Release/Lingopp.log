@@ -1,0 +1,7 @@
+﻿  Game.cpp
+  Lingopp.cpp
+  Generating code
+  Previous IPDB not found, fall back to full compilation.
+  All 133 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  Finished generating code
+  Lingopp.vcxproj -> X:\.repositories\lingopp\x64\Release\Lingopp.exe

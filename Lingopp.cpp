@@ -1,12 +1,14 @@
 #include <iostream>
 #include "Game.h"
 #include "Lingopp.h"
-using std::cout;
-using std::cin;
-using std::endl;
 
 int main()
 {
-	//Game::word = "asbak";
-	Game::Intro();
+	//Game::Start();
+	std::string answer = "asbak";
+	std::string input = "asbbk";
+	for (uint16_t i = 0; i < input.length(); i++) {
+		if (Game::CheckDuplicates(input, answer, input[i]))
+			std::cout << "CHECK'EM" << std::endl;
+	}
 }

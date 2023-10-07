@@ -1,8 +1,14 @@
 #include "Game.h"
 #include <conio.h>
+#include <vector>
 using std::cout;
 using std::cin;
 using std::endl;
+
+static std::string input;
+static std::vector<char> correct;
+static bool begin = true;
+static char turns = 0;
 
 void Game::Clear()
 {   
@@ -14,24 +20,47 @@ void Game::Clear()
 	// https://en.wikipedia.org/wiki/ANSI_escape_code
 	//https://gist.github.com/fnky/458719343aabd01cfb17a3a4f7296797
 
-	//std::cout << "\033[2J\033[1;1H";
+	std::cout << "\033[2J\033[1;1H";
 }
-
-void Game::Explain()
+bool Game::CheckDuplicates(std::string& inputsource, std::string& answercomparison, const char& character) 
 {
-	std::string rightWord = "asbak";
-	std::string input;
-	Rating rating = Good;
-
-	Clear();
-	cout << "Guess away!" << endl;
-	cin >> input;	
+	bool result;
+	for (uint16_t i = 0; i < inputsource.length(); i++) 
+	{
+		if (inputsource[i] == answercomparison[i])
+		{
+			correct.push_back(i);
+		}
+	}
+	for (uint16_t i = 0; i < inputsource.length(); i++)
+	{
+		if (character == inputsource[i])
+			result = false;
+	}
+	return result;
+}
+bool Game::Contains(const std::string& source, const char& character)
+{
+	bool result = false;
+	//checks if a string contains a certain character
+	for (char c : source) 
+	{
+		if (c == character)
+			result = true;
+	}
+	return result;
+}
+bool Game::Write(std::string& answer, Rating& rating) 
+{
 	for (uint16_t i = 0; i < input.length(); i++)
 	{
-		if (input[i] == rightWord[i])
+		if (input[i] == answer[i])
 			rating = Good;
-		else if (input[i] != rightWord[i])
+		else if (input[i] != answer[i] && Contains(answer, input[i]))
+			rating = Almost;
+		else if (input[i] != answer[i])
 			rating = Wrong;
+
 
 		switch (rating)
 		{
@@ -47,11 +76,22 @@ void Game::Explain()
 		}
 		cout << "\x1b[1;0m";
 	}
+	cout << endl;
+	if (input == answer)
+		return true;
+	return false;
+}
+
+void Game::End() 
+{
+	cout << "Thanks for playing, want to play again?[y/n]" << endl;
+	cin >> input;
+	if (input == " y")
+		Tutorial();
 }
 
 void Game::Tutorial()
 {
-	std::string input;
 	Clear();
 	cout << "Want a tutorial? [y/n]" << endl;
 	cin >> input;
@@ -61,7 +101,7 @@ void Game::Tutorial()
 	else if (input == "n")
 	{
 		Clear();
-		cout << "Okay lets begin" << endl;
+		GameLoop();
 	}
 	else
 	{
@@ -72,10 +112,41 @@ void Game::Tutorial()
 	}
 }
 
-void Game::Intro()
+void Game::Start()
 {
 	Clear();
 	cout << "Welcome to Lingo!\nThis is a dutch gameshow about guessing words. (press any key)" << endl;
+	cin >> input;
 	Tutorial();
 
+}
+
+void Game::GameLoop() 
+{
+	std::string answer = "asbak";
+	Rating rating = Good;
+	if (begin) 
+	{
+		begin = false;
+		cout << "Okay lets begin, guess away!" << endl;
+	}
+	cin >> input;
+	cout << " turn: " << turns << endl;
+	if (!Write(answer, rating) && turns < 4)
+	{
+		GameLoop();
+		++turns;
+	}
+	else
+		End();
+
+}
+void Game::Explain()
+{
+	Clear();
+	cout << "You'll need to guess a 5 letter word.\nIf a letter is right it will be \x1b[1;34mblue\x1b[1;0m.\nIf the word contains the letter but it's on the wrong place it's \x1b[1;33myellow\x1b[1;0m.\n And if it's wrong it's \x1b[1;31mred\x1b[1;0m of course." << endl;
+	cout << "You got it? Let's begin. (press any key)" << endl;
+	cin >>  input;
+	Clear();
+	GameLoop();
 }
