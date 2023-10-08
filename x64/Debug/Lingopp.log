@@ -1,9 +1,2 @@
 ﻿  Game.cpp
-X:\.repositories\lingopp\Game.cpp(32,22): warning C4244: 'argument': conversion from 'uint16_t' to '_Ty', possible loss of data
-          with
-          [
-              _Ty=char
-          ]
-  Lingopp.cpp
-  Generating Code...
-  Lingopp.vcxproj -> X:\.repositories\lingopp\x64\Debug\Lingopp.exe
+  Lingopp.vcxproj -> X:\.repositories\lingocpp\x64\Debug\Lingopp.exe

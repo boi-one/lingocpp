@@ -2,7 +2,7 @@
 <Project>
   <ProjectOutputs>
     <ProjectOutput>
-      <FullPath>X:\.repositories\lingopp\x64\Debug\Lingopp.exe</FullPath>
+      <FullPath>X:\.repositories\lingocpp\x64\Debug\Lingopp.exe</FullPath>
     </ProjectOutput>
   </ProjectOutputs>
   <ContentFiles />

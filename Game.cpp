@@ -6,57 +6,45 @@ using std::cin;
 using std::endl;
 
 static std::string input;
-static std::vector<char> correct;
+static char correct[4];
 static bool begin = true;
-static char turns = 0;
+static int turns = 0;
 
 void Game::Clear()
 {   
 	//clear screen "\033[2J\033[1;1H";
 	// OCTAL ESCAPE CHARACTER \033
-	// CLEAR SCREEN [2J //https://gist.github.com/fnky/458719343aabd01cfb17a3a4f7296797#erase-functions
-	// ANOTHER ESCAPE CHARACTER \033
+	// CLEAR SCREEN [2J
+	// ??? [1;1H
 	// https://en.wikipedia.org/wiki/Escape_sequences_in_C
 	// https://en.wikipedia.org/wiki/ANSI_escape_code
 	//https://gist.github.com/fnky/458719343aabd01cfb17a3a4f7296797
 
 	std::cout << "\033[2J\033[1;1H";
 }
-bool Game::CheckDuplicates(std::string& inputsource, std::string& answercomparison, const char& character) 
-{
-	bool result;
-	for (uint16_t i = 0; i < inputsource.length(); i++) 
-	{
-		if (inputsource[i] == answercomparison[i])
-		{
-			correct.push_back(i);
-		}
-	}
-	for (uint16_t i = 0; i < inputsource.length(); i++)
-	{
-		if (character == inputsource[i])
-			result = false;
-	}
-	return result;
-}
+
 bool Game::Contains(const std::string& source, const char& character)
 {
 	bool result = false;
 	//checks if a string contains a certain character
-	for (char c : source) 
+	for (char c : source)
 	{
 		if (c == character)
 			result = true;
 	}
 	return result;
 }
+
 bool Game::Write(std::string& answer, Rating& rating) 
 {
 	for (uint16_t i = 0; i < input.length(); i++)
 	{
 		if (input[i] == answer[i])
+			correct[i] = input[i];
+
+		if (input[i] == answer[i])
 			rating = Good;
-		else if (input[i] != answer[i] && Contains(answer, input[i]))
+		else if (input[i] != answer[i] && Contains(answer, input[i]) &&  !Contains(correct, input[i]))
 			rating = Almost;
 		else if (input[i] != answer[i])
 			rating = Wrong;
@@ -123,24 +111,31 @@ void Game::Start()
 
 void Game::GameLoop() 
 {
+	cout << turns;
 	std::string answer = "asbak";
 	Rating rating = Good;
 	if (begin) 
 	{
 		begin = false;
-		cout << "Okay lets begin, guess away!" << endl;
+		cout << "Okay lets begin, guess away!" << endl << answer[0] << "####" << endl;
 	}
 	cin >> input;
-	cout << " turn: " << turns << endl;
-	if (!Write(answer, rating) && turns < 4)
+	cout << "turn: " << turns << endl;
+	if (!Write(answer, rating) && input.length() < 4 && turns < 4)
 	{
-		GameLoop();
 		++turns;
+		cout << turns;
+		GameLoop();
 	}
-	else
-		End();
-
+	else if(input.length() != answer.length())
+	{
+		cout << "NOT a 5 letter word!\a (press any key)" << endl;
+		cin >> input;
+		cout << turns;
+		GameLoop();
+	}
 }
+
 void Game::Explain()
 {
 	Clear();
