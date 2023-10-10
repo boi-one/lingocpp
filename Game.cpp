@@ -1,14 +1,26 @@
 #include "Game.h"
 #include <conio.h>
+#include <iostream>
 #include <vector>
+#include <random>
 using std::cout;
 using std::cin;
 using std::endl;
 
 static std::string input;
-static char correct[4];
+std::string answer;
+static char correct[5];
+static std::vector<std::string> words = { "aaien", "aapje", "acryl", "acuut", "aders", "afval", "afzet", "aioli", "ajuus", "akten", "album", "alert", "amper", "dadel", "dakje", "debat", "deden", "dikke", "doelt", "fonts", "fruit", "filet", "flash", "flikt" };
 static bool begin = true;
-static int turns = 0;
+static int turns = 1;
+
+void Game::ClearArray(const std::string& source)
+{
+	for (char c : source)
+	{
+		c = '\0';
+	}
+}
 
 void Game::Clear()
 {   
@@ -39,16 +51,20 @@ bool Game::Write(std::string& answer, Rating& rating)
 {
 	for (uint16_t i = 0; i < input.length(); i++)
 	{
-		if (input[i] == answer[i])
-			correct[i] = input[i];
+		for (char c : input)
+		{
+			if (input[i] == answer[i])
+				correct[i] = input[i];
+		}
 
-		if (input[i] == answer[i])
+		if (input[i] == answer[i]) 
+		{
 			rating = Good;
-		else if (input[i] != answer[i] && Contains(answer, input[i]) &&  !Contains(correct, input[i]))
+		}
+		else if (input[i] != answer[i] && Contains(answer, input[i]) && !Contains(correct, input[i]))
 			rating = Almost;
 		else if (input[i] != answer[i])
 			rating = Wrong;
-
 
 		switch (rating)
 		{
@@ -75,7 +91,10 @@ void Game::End()
 	cout << "Thanks for playing, want to play again?[y/n]" << endl;
 	cin >> input;
 	if (input == " y")
+	{
+		ClearArray(correct);
 		Tutorial();
+	}
 }
 
 void Game::Tutorial()
@@ -108,12 +127,20 @@ void Game::Start()
 	Tutorial();
 }
 
+std::string Game::WordSetup()
+{
+	std::random_device rand;
+	std::uniform_int_distribution<int> dist(0, words.size());
+
+	return words[dist(rand)];
+}
+
 void Game::GameLoop() 
 {
-	std::string answer = "asbak";
 	Rating rating = Good;
 	if (begin) 
 	{
+		answer = Game::WordSetup();
 		begin = false;
 		cout << "Okay lets begin, guess away!" << endl << answer[0] << "####" << endl;
 	}
@@ -122,16 +149,8 @@ void Game::GameLoop()
 	if (!Write(answer, rating) && turns < 5)
 	{
 		++turns;
-		cout << "decrease turns " << turns << endl;
 		GameLoop();
 	}
-	//else if(input.length() != answer.length())
-	//{
-	//	cout << "NOT a 5 letter word!\a (press any key)" << endl;
-	//	cin >> input;
-	//	cout << "check length " << turns << endl;
-	//	GameLoop();
-	//}
 }
 
 void Game::Explain()

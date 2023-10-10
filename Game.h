@@ -10,12 +10,13 @@ public:
 	};
 
 	static void Clear();
-	static bool Correctness(std::string& source, std::string& comparison, const char& character);
+	static void ClearArray(const std::string& source);
 	static bool Contains(const std::string& source, const char& character);
 	static bool Write(std::string& answer, Rating& rating);
 	static void Start();
 	static void Tutorial();
 	static void Explain();
+	static std::string WordSetup();
 	static void GameLoop();
 	static void End();
 	
