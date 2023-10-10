@@ -1,1 +1,0 @@
-X:\.repositories\lingopp\x64\Release\Lingopp.exe

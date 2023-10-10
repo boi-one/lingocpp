@@ -1,1 +1,9 @@
-﻿  Lingopp.vcxproj -> X:\.repositories\lingocpp\x64\Debug\Lingopp.exe
+﻿  Game.cpp
+X:\.repositories\lingocpp\Game.cpp(133,55): warning C4267: 'argument': conversion from 'size_t' to '_Ty', possible loss of data
+          with
+          [
+              _Ty=int
+          ]
+  Lingopp.cpp
+  Generating Code...
+  Lingopp.vcxproj -> X:\.repositories\lingocpp\x64\Debug\Lingopp.exe

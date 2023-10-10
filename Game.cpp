@@ -24,13 +24,14 @@ void Game::ClearArray(const std::string& source)
 
 void Game::Clear()
 {   
-	//clear screen "\033[2J\033[1;1H";
-	// OCTAL ESCAPE CHARACTER \033
+	// clear screen "\033[2J\033[1;1H";
+	// ESCAPE CHARACTER \033
 	// CLEAR SCREEN [2J
 	// ??? [1;1H
 	// https://en.wikipedia.org/wiki/Escape_sequences_in_C
 	// https://en.wikipedia.org/wiki/ANSI_escape_code
-	//https://gist.github.com/fnky/458719343aabd01cfb17a3a4f7296797
+	// https://gist.github.com/fnky/458719343aabd01cfb17a3a4f7296797
+	// doesnt work when build????????????
 
 	std::cout << "\033[2J\033[1;1H";
 }

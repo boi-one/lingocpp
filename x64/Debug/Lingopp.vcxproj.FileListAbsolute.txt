@@ -1,3 +1,1 @@
-C:\Projects\Lingopp\x64\Debug\Lingopp.exe
-X:\.repositories\lingopp\x64\Debug\Lingopp.exe
 X:\.repositories\lingocpp\x64\Debug\Lingopp.exe
