@@ -4,7 +4,7 @@
 
 int main()
 {
-	Game::Start();
+	//Game::Start();
 	//std::string answer = "asbak";
 	//std::string input = "asbbk";
 	//for (uint16_t i = 0; i < input.length(); i++) {

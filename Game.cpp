@@ -104,14 +104,12 @@ void Game::Start()
 {
 	Clear();
 	cout << "Welcome to Lingo!\nThis is a dutch gameshow about guessing words. (press any key)" << endl;
-	cin >> input;
+	_getch();
 	Tutorial();
-
 }
 
 void Game::GameLoop() 
 {
-	cout << turns;
 	std::string answer = "asbak";
 	Rating rating = Good;
 	if (begin) 
@@ -121,19 +119,19 @@ void Game::GameLoop()
 	}
 	cin >> input;
 	cout << "turn: " << turns << endl;
-	if (!Write(answer, rating) && input.length() < 4 && turns < 4)
+	if (!Write(answer, rating) && turns < 5)
 	{
 		++turns;
-		cout << turns;
+		cout << "decrease turns " << turns << endl;
 		GameLoop();
 	}
-	else if(input.length() != answer.length())
-	{
-		cout << "NOT a 5 letter word!\a (press any key)" << endl;
-		cin >> input;
-		cout << turns;
-		GameLoop();
-	}
+	//else if(input.length() != answer.length())
+	//{
+	//	cout << "NOT a 5 letter word!\a (press any key)" << endl;
+	//	cin >> input;
+	//	cout << "check length " << turns << endl;
+	//	GameLoop();
+	//}
 }
 
 void Game::Explain()
@@ -141,7 +139,7 @@ void Game::Explain()
 	Clear();
 	cout << "You'll need to guess a 5 letter word.\nIf a letter is right it will be \x1b[1;34mblue\x1b[1;0m.\nIf the word contains the letter but it's on the wrong place it's \x1b[1;33myellow\x1b[1;0m.\n And if it's wrong it's \x1b[1;31mred\x1b[1;0m of course." << endl;
 	cout << "You got it? Let's begin. (press any key)" << endl;
-	cin >>  input;
+	_getch();
 	Clear();
 	GameLoop();
 }
